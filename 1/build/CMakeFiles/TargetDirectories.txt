@@ -1,0 +1,8 @@
+/home/c/文档/GitHub/W.L.Y-/1/build/CMakeFiles/wave_energy_solver.dir
+/home/c/文档/GitHub/W.L.Y-/1/build/CMakeFiles/ODESolver.dir
+/home/c/文档/GitHub/W.L.Y-/1/build/CMakeFiles/edit_cache.dir
+/home/c/文档/GitHub/W.L.Y-/1/build/CMakeFiles/rebuild_cache.dir
+/home/c/文档/GitHub/W.L.Y-/1/build/CMakeFiles/list_install_components.dir
+/home/c/文档/GitHub/W.L.Y-/1/build/CMakeFiles/install.dir
+/home/c/文档/GitHub/W.L.Y-/1/build/CMakeFiles/install/local.dir
+/home/c/文档/GitHub/W.L.Y-/1/build/CMakeFiles/install/strip.dir

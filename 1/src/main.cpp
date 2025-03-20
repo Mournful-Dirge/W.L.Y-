@@ -1,20 +1,20 @@
 #include "../include/utilities.hpp"
-using namespace std;
+#include <vector>
 
 int main() {
     ODESolver solver;
 
     // 设置参数
     solver.setParameters(
-        10.0,   // mA
-        5.0,    // mB
-        200.0,  // k_e
+        4866,   // mA 浮子质量（kg）
+        2433,   // mB 振子质量（kg）
+        80000.0,  // k_e 弹簧刚度 (N/m)
         10.0,   // C1
-        5.0,    // C2
-        100.0,  // F
-        2.0,    // omega
-        1000.0, // rho0
-        9.81,   // g
+        656.3616,    // C2 垂荡兴波阻尼系数 (N·s/m)
+        6250.0,  // F 垂荡激励力振幅 (N)
+        1.4005,    // omega 入射波浪频率 (s-1)
+        1025.0, // rho0 海水的密度 (kg/m3)
+        9.81,   // g 重力加速度 (m/s2)
         0.5,    // H
         0.3,    // h
         0.1,    // R

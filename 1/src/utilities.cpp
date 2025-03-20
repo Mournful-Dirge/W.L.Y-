@@ -6,7 +6,7 @@
 #include <memory>
 #include <iomanip>
 #include <pybind11/pybind11.h>
-#include "utilities.hpp"
+#include <pybind11/stl.h>
 using namespace std;
 namespace py = pybind11;
 
@@ -119,13 +119,4 @@ void ODESolver::output(const vector<vector<double>>& results)
         double t = i * h;
         cout << t << "\t" << results[i][0] << "\t" << results[i][1] << "\t" << results[i][2] << "\t" << results[i][3] << endl;
     }
-}
-
-// 定义Python模块
-PYBIND11_MODULE(ODESolver, m) {
-    py::class_<ODESolver>(m, "ODESolver")
-        .def(py::init<>())
-        .def("setParameters", &ODESolver::setParameters)
-        .def("rungeKutta4th", &ODESolver::runge_kutta_4th)
-        .def("outputResults", &ODESolver::output);
 }

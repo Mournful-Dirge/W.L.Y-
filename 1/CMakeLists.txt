@@ -10,7 +10,11 @@ find_package(Python COMPONENTS Interpreter Development REQUIRED)
 find_package(pybind11 REQUIRED)
 
 # 添加 C++ 源文件并创建可执行文件
-add_executable(wave_energy_solver src/main.cpp src/utilities.cpp)
+add_executable(wave_energy_solver src/main.cpp src/bindings.cpp src/utilities.cpp)
+
+# 添加 Python 模块
+pybind11_add_module(ODESolver src/main.cpp src/bindings.cpp src/utilities.cpp)
+target_include_directories(ODESolver PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 # 包含头文件目录
 target_include_directories(wave_energy_solver PRIVATE
@@ -23,6 +27,8 @@ target_include_directories(wave_energy_solver PRIVATE
 target_link_libraries(wave_energy_solver PRIVATE
     ${Python_LIBRARIES}
     pybind11::pybind11
+    ${PYTHON_MODULE_NAME} PRIVATE 
+    pybind11::module
 )
 
 # 添加 Python 脚本的自定义命令
@@ -34,5 +40,4 @@ add_custom_command(
 )
 
 # 添加安装规则
-install(TARGETS wave_energy_solver DESTINATION /home/c/文档/Visual_Studio_Code/2022 A题 波浪能最大输出功率设计/python)
 install(FILES ${CMAKE_SOURCE_DIR}/python/main.py ${CMAKE_SOURCE_DIR}/python/helpers.py DESTINATION python)
