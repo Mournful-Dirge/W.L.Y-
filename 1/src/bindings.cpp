@@ -7,10 +7,14 @@ namespace py = pybind11;
 PYBIND11_MODULE(ODESolver, m) {
     py::class_<ODESolver>(m, "ODESolver")
         .def(py::init<>())
-        .def("runge_kutta_4th", &ODESolver::runge_kutta_4th,
-             py::arg("initialState"), py::arg("t0"), py::arg("t_end"), py::arg("dt"))
         .def("setParameters", &ODESolver::setParameters)
-        .def("computeBuoyancyTerm", &ODESolver::computeBuoyancyTerm)
-        .def("systemDynamics", &ODESolver::systemDynamics)
-        .def("output", &ODESolver::output);
+        .def("runge_kutta_4th", &ODESolver::runge_kutta_4th,
+             py::arg("initialState"), py::arg("t0"), py::arg("t_end"), py::arg("h"), py::arg("linear_damping"))
+        .def("output", &ODESolver::output)
+        .def("optimizeDamping", &ODESolver::optimizeDamping)
+        .def("getOmega", &ODESolver::getOmega)
+        .def("setOmega", &ODESolver::setOmega)
+        .def("getC1", &ODESolver::getC1)
+        .def("setC1", &ODESolver::setC1)
+        .def("calculatePower", &ODESolver::calculatePower);
 }

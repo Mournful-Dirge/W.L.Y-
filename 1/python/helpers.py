@@ -15,7 +15,7 @@ plt.rcParams['lines.linewidth'] = 2
 
 def show(results, dt):
     """
-    绘制 ODESolver 计算结果的位移和速度随时间变化的图表，符合数模美赛 O 奖优秀论文风格。
+    绘制 ODESolver 计算结果的位移和速度随时间变化的图表。
 
     参数：
     results (list): ODESolver 计算结果，格式为列表的列表
@@ -56,4 +56,39 @@ def show(results, dt):
     ax.grid(True, linestyle='--', alpha=0.7)
     ax.xaxis.grid(False)  # 只显示水平网格线
     plt.tight_layout()
+    plt.show()
+    
+# 可视化功率分布
+def visualize_power_distribution(solver):
+    # 参数范围
+    C1_values = np.arange(0, 100001, 1000)
+    alpha_values = np.arange(0, 1.1, 0.1)
+    C1_mesh, alpha_mesh = np.meshgrid(C1_values, alpha_values, indexing='ij')
+    power_mesh = np.zeros_like(C1_mesh, dtype=np.float64) 
+
+    # 初始状态
+    initialState = [0.0, 0.0, 0.0, 0.0]
+    t0 = 0.0
+    t_end = 40.0 * 2 * np.pi / solver.getOmega()
+    h_step = 0.2
+
+    # 计算每个参数组合的功率
+    for i, C1 in enumerate(C1_values):
+        for j, alpha in enumerate(alpha_values):
+            solver.setC1(C1)
+            results = solver.runge_kutta_4th(initialState, t0, t_end, h_step, False)
+            power = solver.calculatePower(results, C1, False)
+            if np.isnan(power):
+                print(f"Warning: NaN value encountered at C1={C1}, alpha={alpha}")
+                power = 0.0
+            power_mesh[i, j] = power
+
+    # 绘制3D曲面图
+    fig = plt.figure(figsize=(12, 8))
+    ax = fig.add_subplot(111, projection='3d')
+    ax.plot_surface(C1_mesh, alpha_mesh, power_mesh, cmap='viridis')
+    ax.set_xlabel('Damping Coefficient C1 (N·s/m)')
+    ax.set_ylabel('Exponent alpha')
+    ax.set_zlabel('Output Power (W)')
+    ax.set_title('Output Power Distribution')
     plt.show()
