@@ -61,11 +61,11 @@ void ODESolver::setParameters(double mA, double mB, double m_add, double k_e, do
 
 double ODESolver::computeBuoyancyTerm(double xA)
 {
-    if (xA >= xA0) {
-        return rho0 * g * M_PI * R * R * (H + h * (xA - xA0) / (xA1 - xA0));
-    } else {
+    //if (xA >= xA0) {
+        //return rho0 * g * M_PI * R * R * (H + h * (xA - xA0) / (xA1 - xA0));
+    //} else {
         return rho0 * g * M_PI * R * R * H;
-    }
+    //}
 }
 
 void ODESolver::systemDynamics(const vector<double> &state, vector<double> &dstate_dt, double t, bool linear_damping)
